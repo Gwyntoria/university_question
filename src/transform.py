@@ -1,8 +1,8 @@
-from pathlib import Path
 from epub_converter import EpubConverter
 
 book_title = "王烁·大学·问"
 book_author = "王烁"
+
 
 def create_epub():
     # 设置文件顺序
@@ -15,7 +15,7 @@ def create_epub():
         "5.在美国看美国.md",
         "6.问答.md",
     ]
-    
+
     # 创建转换器实例
     converter = EpubConverter(
         book_title=book_title,
@@ -23,11 +23,12 @@ def create_epub():
         input_dir="../md",
         output_dir="../epub",
         file_order=file_order,
-        cover_image_path="../assets/cover.jpg"
+        cover_image_path="../assets/cover.jpg",
     )
-    
+
     # 执行转换
-    converter.create_epub()
+    converter.convert()
+
 
 if __name__ == "__main__":
     create_epub()

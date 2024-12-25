@@ -1,4 +1,3 @@
-import os
 import subprocess
 from pathlib import Path
 from typing import List, Optional
@@ -22,8 +21,13 @@ class EpubConverter:
         self.cover_image = Path(cover_image_path).resolve() if cover_image_path else None
         self.output_file = f"{book_title}.epub"
 
-    def validate_files(self) -> List[str]:
-        """检查所有必需文件是否存在，返回缺失的文件列表"""
+    def _validate_files(self) -> List[str]:
+        """检查所有必需文件是否存在，返回缺失的文件列表
+
+        Returns:
+            List[str]: 缺失的文件list
+        """
+
         missing_files = []
         for file in self.file_order:
             file_path = self.input_dir / file
@@ -35,8 +39,12 @@ class EpubConverter:
                 print(f"Found file: {file_path}")
         return missing_files
 
-    def build_pandoc_command(self) -> List[str]:
-        """构建pandoc命令"""
+    def _build_pandoc_cmd(self) -> List[str]:
+        """Building the pandoc command
+
+        Returns:
+            List[str]: pandoc command
+        """
         input_files = [str(self.input_dir / filename) for filename in self.file_order]
 
         command = [
@@ -62,37 +70,37 @@ class EpubConverter:
         command.extend(input_files)
         return command
 
-    def create_epub(self) -> bool:
-        """
-        创建EPUB文件
-        返回：转换是否成功
+    def convert(self) -> bool:
+        """Creating EPUB Files
+
+        Returns:
+            bool: conversion success
         """
         # 确保输出目录存在
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
         # 验证文件
-        missing_files = self.validate_files()
+        missing_files = self._validate_files()
         if missing_files:
             print(f"The following files are missing: {missing_files}")
             return False
 
         # 构建并执行命令
-        command = self.build_pandoc_command()
+        command = self._build_pandoc_cmd()
         print("Executing command:")
-        print(" ".join(command))
+        print(command)
 
         try:
             result = subprocess.run(command, check=True, capture_output=True, text=True)
             print("Pandoc stdout:", result.stdout)
             print("Pandoc stderr:", result.stderr)
 
-            # 移动文件到输出目录
             output_path = self.output_dir / self.output_file
             if output_path.exists():
                 output_path.unlink()
             Path(self.output_file).rename(output_path)
-
             print(f"Successfully created EPUB file: {output_path}")
+
             return True
 
         except subprocess.CalledProcessError as e:
