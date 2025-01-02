@@ -6,8 +6,10 @@
 
 王烁老师的文章常读常新，在此推荐，有能力的可移步得到，付费支持。
 
-## Pandoc
+## Dependency
 
 [Pandoc](https://pandoc.org/) 是一个通用文档转换工具。可以直接在官网下载安装。仓库中的脚本必须在已经安装了该工具之后才能运行。
 
-`transform.py` 脚本最后测试成功的 pandoc 版本为 2.18。
+`transform.py` 脚本最后测试成功的 pandoc 版本为 3.6.1。
+
+由于 pandoc 对 latex 的转换存在错误，所以文中所有由 latex 编写的公式块都被转换成了 svg。
