@@ -12,4 +12,4 @@
 
 `transform.py` 脚本最后测试成功的 pandoc 版本为 3.6.1。
 
-由于 pandoc 对 latex 的转换存在错误，所以文中所有由 latex 编写的公式块都被转换成了 svg。
+由于 Pandoc 对 LaTex 的转换存在错误，所以文中所有由 LaTex 编写的公式块，都被转换为 JPG。
