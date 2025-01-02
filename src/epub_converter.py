@@ -46,16 +46,18 @@ class EpubConverter:
             List[str]: pandoc command
         """
         input_files = [str(self.input_dir / filename) for filename in self.file_order]
+        
+        output_file_path = self.output_dir / self.output_file
 
         command = [
             "pandoc",
             "--from=markdown",
             "--to=epub",
             "-o",
-            self.output_file,
+            output_file_path,
             "--toc",
             "--toc-depth=2",
-            "--epub-chapter-level=2",
+            "--split-level=2",
             "--metadata",
             f"title={self.book_title}",
             "--metadata",
@@ -91,15 +93,15 @@ class EpubConverter:
         print(command)
 
         try:
+            output_file_path = self.output_dir / self.output_file
+            if output_file_path.exists():
+                output_file_path.unlink()
+
             result = subprocess.run(command, check=True, capture_output=True, text=True)
-            print("Pandoc stdout:", result.stdout)
             print("Pandoc stderr:", result.stderr)
 
-            output_path = self.output_dir / self.output_file
-            if output_path.exists():
-                output_path.unlink()
-            Path(self.output_file).rename(output_path)
-            print(f"Successfully created EPUB file: {output_path}")
+            if result.returncode == 0:
+                print(f"Successfully created EPUB file: {output_file_path}")
 
             return True
 
