@@ -2,6 +2,7 @@ from epub_converter import EpubConverter
 
 book_title = "王烁·大学·问"
 book_author = "王烁"
+book_version = "1.3"
 
 
 def create_epub():
@@ -24,6 +25,7 @@ def create_epub():
         output_dir="../epub",
         file_order=file_order,
         cover_image_path="../assets/cover.jpg",
+        book_version=book_version,
     )
 
     # 执行转换

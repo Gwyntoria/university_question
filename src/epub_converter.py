@@ -1,6 +1,6 @@
 import subprocess
 from pathlib import Path
-from typing import List, Optional
+from typing import List
 
 
 class EpubConverter:
@@ -11,15 +11,16 @@ class EpubConverter:
         input_dir: str | Path,
         output_dir: str | Path,
         file_order: List[str],
-        cover_image_path: Optional[str | Path] = None,
+        cover_image_path: str | Path,
+        book_version: str,
     ):
         self.book_title = book_title
         self.book_author = book_author
         self.input_dir = Path(input_dir).resolve()
         self.output_dir = Path(output_dir).resolve()
         self.file_order = file_order
-        self.cover_image = Path(cover_image_path).resolve() if cover_image_path else None
-        self.output_file = f"{book_title}.epub"
+        self.cover_image = Path(cover_image_path).resolve()
+        self.output_file = f"{book_version}.epub"
 
     def _validate_files(self) -> List[str]:
         """检查所有必需文件是否存在，返回缺失的文件列表
@@ -46,7 +47,6 @@ class EpubConverter:
             List[str]: pandoc command
         """
         input_files = [str(self.input_dir / filename) for filename in self.file_order]
-        
         output_file_path = self.output_dir / self.output_file
 
         command = [
