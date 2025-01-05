@@ -6,10 +6,15 @@
 
 王烁老师的文章常读常新，在此推荐，有能力的可移步得到，付费支持。
 
-## Dependency
+## 使用方法
 
-[Pandoc](https://pandoc.org/) 是一个通用文档转换工具。可以直接在官网下载安装。仓库中的脚本必须在已经安装了该工具之后才能运行。
+`transform.py` 脚本依赖[Pandoc](https://pandoc.org/)工具实现将 Markdown 文件转换为 EPUB 文件。所以使用脚本前，需要先安装 Pandoc。
 
-`transform.py` 脚本最后测试成功的 pandoc 版本为 3.6.1。
+Windows 可以直接访问官网下载安装，Mac 中可以使用 Homebrew 安装，详见官网指南。
 
-由于 Pandoc 对 LaTex 的转换存在错误，所以文中所有由 LaTex 编写的公式块，都被转换为 JPG。
+`transform.py` 脚本最后测试成功的 Pandoc 版本为 v3.6.1。
+
+## 补充说明
+
+1. 由于 Pandoc 对 LaTex 的转换存在错误，所以文本中原先由 LaTex 编写的公式，现在被转换为 JPG。
+2. 启用 metadata.yaml 文件对生成的 EPUB 文件的 metadata 进行设定，而非原先脚本内部设定的默认指令。
