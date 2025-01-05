@@ -2,7 +2,7 @@ from epub_converter import EpubConverter
 
 book_title = "王烁·大学·问"
 book_author = "王烁"
-book_version = "1.3"
+book_version = "1.4"
 
 
 def create_epub():

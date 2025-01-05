@@ -48,6 +48,7 @@ class EpubConverter:
         """
         input_files = [str(self.input_dir / filename) for filename in self.file_order]
         output_file_path = self.output_dir / self.output_file
+        metadata_file = self.input_dir / "metadata.yaml"
 
         command = [
             "pandoc",
@@ -58,10 +59,8 @@ class EpubConverter:
             "--toc",
             "--toc-depth=2",
             "--split-level=2",
-            "--metadata",
-            f"title={self.book_title}",
-            "--metadata",
-            f"author={self.book_author}",
+            "--metadata-file",
+            f"{metadata_file}",
         ]
 
         if self.cover_image and self.cover_image.exists():
@@ -98,7 +97,7 @@ class EpubConverter:
                 output_file_path.unlink()
 
             result = subprocess.run(command, check=True, capture_output=True, text=True)
-            print("Pandoc stderr:", result.stderr)
+            print("Pandoc stderr:\r\n", result.stderr)
 
             if result.returncode == 0:
                 print(f"Successfully created EPUB file: {output_file_path}")
