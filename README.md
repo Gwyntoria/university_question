@@ -12,7 +12,9 @@
 
 Windows 可以直接访问官网下载安装，Mac 中可以使用 Homebrew 安装，详见官网指南。
 
-`transform.py` 脚本最后测试成功的 pandoc 版本为 v3.6.1。
+`transform.py` 脚本最后测试成功的 pandoc 版本为 v3.6.1，python 版本为 v3.13.1。
+
+安装 pandoc 之后，进入 `src` 目录后执行 `python transform.py`。
 
 ## 补充说明
 
